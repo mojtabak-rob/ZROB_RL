@@ -68,7 +68,7 @@ class train:
         #for i in range(len(onset_envelope)):
         #    if onset_envelope[i]<-8:
         #        onset_envelope[i]=0
-        onset_frames = librosa.util.peak_pick(onset_envelope, pre_max=3, post_max=3, pre_avg=3, post_avg=5, delta=0.3, wait=15)
+        onset_frames = librosa.util.peak_pick(onset_envelope, pre_max=3, post_max=3, pre_avg=3, post_avg=5, delta=2, wait=3)
         #print(onset_frames)
         t = np.linspace(0, len(y)/float(sr), len(onset_envelope))
         if len(onset_frames)==4:
@@ -86,6 +86,8 @@ class train:
             #print("reward={}".format(reward))
         else:
             reward=-10
+
+        #print(len(onset_frames))
         #print(t[onset_frames[-1]]-t[onset_frames[-2]])
         #plt.figure()
         #plt.plot(t, onset_envelope)
@@ -131,11 +133,11 @@ class train:
         tau = self.tau
         critic_optimizer = tf.keras.optimizers.Adam(critic_lr)
         actor_optimizer = tf.keras.optimizers.Adam(actor_lr)
-        step_ep = 10
+        step_ep = 5
         buffer = Z.Buffer(100000, 64, num_states, num_actions)
         ep_reward_list = []
         avg_reward_list = []
-        total_episodes = 10
+        total_episodes = 100
         total_step = 2000
         gamma = 0.99
         #th2 = threading.Thread(target=self.zarb)
@@ -164,9 +166,10 @@ class train:
                 step += 1
                 # Recieve state and reward from environment.
                 state, reward, done, info = env.step(action)
+                print(self.V2)
                 self.Zrob.write_mids(self.V1,self.V2)
                 #print(prev_state)
-                time.sleep(1.3)
+                time.sleep(1.1)
                 reward=self.rew()
 
                             

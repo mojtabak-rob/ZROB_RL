@@ -17,8 +17,8 @@ long ZROB3 = 0x142;
 long ZROB4 = 0x143;
 
 // Initiall and resting position of the robots
-const long ZROBIDLE1 = 36000;
-const long ZROBIDLE2 = 19000;
+const long ZROBIDLE1 = 36000-6000;
+const long ZROBIDLE2 = 19000-5000;
 const long ZROBIDLE3 = 2000;
 const long ZROBIDLE4 = 1500;
 
@@ -339,18 +339,19 @@ void loop() {
       
       if (V1[i][0]==1){
         ROB = ZROB1;
-        fr = 6+V2[0]*4/256;
-        am = 6000+V2[1]*3000/256;
+        fr = 5+V2[0]*15/256;
+        am = 1000+V2[1]*4000/256;
       }
       else {
         ROB = ZROB2;
-        fr = 6+V2[2]*4/256;
-        am = 6000+V2[3]*3000/256;
+        fr = 5+V2[2]*15/256;
+        am = 1000+V2[3]*4000/256;
       }
 
       kick(ROB, fr, am);
       
-      delay(V1[i][1]+V1[i][2]*256-1000/fr-2);
+      delay(V1[i][1]+V1[i][2]*256-1000/fr);
+      //delay(1);
     }
 
       

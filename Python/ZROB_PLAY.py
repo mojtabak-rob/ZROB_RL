@@ -33,15 +33,18 @@ if __name__ == '__main__':
     V1 = []
     V2 = []
     
-    V1.append([1,250,0])
-    V1.append([2,250,0])
-    V1.append([1,250,0])
-    V1.append([2,250,0])
+    for i in range(1):
+        V1.append([1,250,0])
+        V1.append([2,250,0])
+        V1.append([1,250,0])
+        V1.append([2,250,0])
+    
 
     V2 = [0,0,0,0]
     ZP = ZrobPlay()
     time.sleep(3)
     ZP.write_mids(V1,V2)
-    time.sleep(2)
+    #print("play")
+    time.sleep(1)
     
     
